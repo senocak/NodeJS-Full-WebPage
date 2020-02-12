@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="tr">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Anıl Şenocak</title>
+		<meta name='description' content='Anıl Şenocak'>
+		<link href="https://fonts.googleapis.com/css?family=Nunito:400,700" rel="stylesheet">
+		<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+		<link rel="stylesheet" href="/style.css">
+        <link rel="stylesheet" href="/prism.css">
+		<script type="text/javascript" language="javascript" src="/jquery-1.12.4.js"></script>
+		<script type="text/javascript" language="javascript" src="/jquery.dataTables.js"></script>
+		<script src="https://cdn.ckeditor.com/4.13.1/full-all/ckeditor.js"></script>
+		<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+	</head>
+	<body>
+		<div class="preloader"><div class="loader"><span>Yükleniyor</span></div></div>
+		<header class="header">
+			<div class="container">
+				<div class="row">
+					<div class="col col-12">
+						<div class="header-box">
+                            <a href="/" style="color:white;">
+                                <div class="logo">
+                                    <span class="logo__mark">&gt;</span>
+                                    <span class="logo__text">$ cd /home/</span>
+                                    <span class="logo__cursor"></span>
+                                </div>
+                            </a>
+							<div class="
+							nav-buttons">
+								<i class="menu-button d-hide ion ion-ios-menu"></i>
+							</div>
+							<nav class="nav-menu">
+								<i class="menu-close ion ion-ios-close"></i>
+								<ul class="menu-list">
+									<li class="menu-item"><a href="#" class="menu-link">Hakkımda</a></li>
+								</ul>
+							</nav>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+		@if(user.userId)
+		<br><br>
+		<nav class="admin_nav">
+			<label for="drop" class="toggle">Menu</label>
+			<input type="checkbox" id="drop" />
+				<ul class="menu">
+					<li><a href="/admin">Anasayfa</a></li>
+					<li><a href="/admin/yazi">Yazılar</a></li>
+					<li><a href="/admin/kategori">Kategoriler</a></li>
+					<li><a href="/admin/yorum">Yorumlar</a></li>
+					<li><a href="/admin/ayar">Ayarlar</a></li>
+					<li><a href="/admin/logout" style="float: right;">Çıkış Yap</a></li>
+					<!--
+					<li>
+						<label for="drop-1" class="toggle">Yazılar</label>
+						<a href="#">WordPress</a>
+						<input type="checkbox" id="drop-1"/>
+						<ul>
+							<li><a href="#">Themes and stuff</a></li>
+							<li><a href="#">Plugins</a></li>
+							<li><a href="#">Tutorials</a></li>
+						</ul>
+					</li>
+					-->
+				</ul>
+			</nav>
+			<style>
+				.toggle, [id^=drop] {display: none;}
+				.admin_nav {margin:0;padding: 0;background-color: #254441;}
+				.admin_nav:after {content:"";display:table;clear:both;}
+				.admin_nav ul {padding:0;margin:0;list-style: none;position: relative;}
+				.admin_nav ul li {margin: 0px;display:inline-block;float: left;background-color: #254441;}
+				.admin_nav a {display:block;padding:14px 20px;color:#FFF;font-size:17px;text-decoration:none;}
+				.admin_nav ul li ul li:hover { background: #000000; }
+				.admin_nav a:hover {background-color: #000000;}
+				.admin_nav ul ul {display: none;position: absolute;top: 60px;}
+				.admin_nav ul li:hover > ul {display:inherit;}
+				.admin_nav ul ul li {width:170px;float:none;display:list-item;position: relative;}
+				.admin_nav ul ul ul li {position: relative;top:-60px;left:170px;}
+				li > a:after { content:  ' +'; }
+				li > a:only-child:after { content: ''; }
+				@media all and (max-width : 768px) {
+					.admin_nav {margin: 0;}
+					.toggle + a, .menu {display: none;}
+					.toggle {display: block;background-color: #254441;padding:14px 20px;color:#FFF;font-size:17px;text-decoration:none;border:none;}
+					.toggle:hover {background-color: #000000;}
+					[id^=drop]:checked + ul {display: block;}
+					.admin_nav ul li {display: block;width: 100%;}
+					.admin_nav ul ul .toggle,.admin_nav ul ul a {padding: 0 40px;}
+					.admin_nav ul ul ul a {padding: 0 80px;}
+					.admin_nav a:hover, .admin_nav ul ul ul a {background-color: #000000;}
+					.admin_nav ul li ul li .toggle,.admin_nav ul ul a,.admin_nav ul ul ul a{padding:14px 20px;color:#FFF;font-size:17px;}
+					.admin_nav ul li ul li .toggle,.admin_nav ul ul a {background-color: #212121;}
+					.admin_nav ul ul {float: none;position:static;color: #ffffff;}
+					.admin_nav ul ul li:hover > ul,.admin_nav ul li:hover > ul {display: none;}
+					.admin_nav ul ul li {display: block;width: 100%;}
+					.admin_nav ul ul ul li {position: static;}
+				}
+				@media all and (max-width : 330px) {
+					.admin_nav ul li {display:block;width: 94%;}
+				}
+			</style>
+		@else
+			<br><br><br>
+		@endif
+		<!--
+		<div class="container">
+			<div class="row">
+				<div class="col col-12">
+                    @section('article_image')
+                        <article class="article-first">
+                            <div class="article-image-first" style="background-image: url(/zakk.jpg)">
+                                <div class="article-content-first">
+                                    <div class="article-tag">
+                                        <a href="#" class="tag">NodeJS</a>
+                                        <a href="#" class="tag">PHP</a>
+                                        <a href="#" class="tag">JAVA</a>
+                                    </div>
+                                    <h2 class="article-title"><a href="#">Anıl Şenocak</a></h2>
+                                    <p class="article-excerpt">Software Engineer</p>
+                                </div>
+                            </div>
+                        </article>
+                    @endsection
+				</div>
+			</div>
+		</div>
+		-->
+		<div class="container">
+			<div class="row">
+				<div class="col col-12 col-t-9">
+                    @!section('article')
+				</div>
+				<div class="col col-14 col-t-3">
+					<aside class="sidebar">
+						<div aria-role="main" style="text-align: center;">
+							<img style="width: 7rem; display: inline-block; border-radius: 100%; box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 0.3618em; --darkreader-inline-boxshadow:rgba(0, 0, 0, 0.05) 0px 0px 0px 0.3618em;" src="/avatar.png" data-darkreader-inline-boxshadow="">
+							<h1>Anıl Şenocak</h1>
+							<p style="text-decoration: none;color: #1ABC9C;transition: .35s;font-size: 15px;">Software Engineer</p>
+							<ul class="social-profiles list-reset">
+								<li class="social-profiles-item"><a href="http://linkedin.com/in/anilsenocak27" class="social-profiles-link" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
+								<li class="social-profiles-item"><a href="http://github.com/senocak" class="social-profiles-link" target="_blank"><i class="fab fa-github"></i></a></li>
+								<li class="social-profiles-item"><a href="https://stackoverflow.com/users/11922928/anıl-Şenocak" class="social-profiles-link" target="_blank"><i class="fab fa-stack-overflow"></i></a></li>
+							</ul>
+						</div>
+						<br>
+						<div class="widget widget-newsletter" style="padding: unset !important;">
+							<h3 class="widget-title">Kategoriler</h3>
+                            @each(k in kategoriler)
+                                <button class="newsletter-button" style="width: 45%;margin-top: 10px;"><a href="/kategori/{{k.url}}" title="{{k.baslik}}" style="color:white;">{{k.baslik}}</a></button>
+                            @endeach
+						</div>
+						<div class="widget widget-tags" style="padding: 15px !important;">
+							<h3 class="widget-title">StackOverFlow</h3>
+							<div class="stackoverflow-flair" style="line-height: normal; display: flex; color: rgb(85, 85, 85); ">
+								<a target="_blank" id="stackoverflow_link"><i class="fa fa-stack-overflow" style="fill: rgb(209, 213, 218);color: rgb(255, 255, 255);position: absolute;top: 0px;right: 0px;border: 0px;"></i></a>
+								<div style="text-align: center; position: relative; width: 75px; height: 75px; margin-left: 5px;">
+									<div class="flair-rainbow-avatar"></div><a target="_blank" id="stackoverflow_link"><img id="stackoverflow_resim" style="width: 100%; border-radius: 50%;"></a>
+								</div>
+								<div class="info" style="width: 160px; text-align: right; font-size: 14px;">
+									<div class="user-profile-bio">&nbsp;<span style="color: white;" id="stackoverflow_bio">Bio</span></div>
+									<div class="meta">
+										<span title="reputation"><span id="reputation" style="color: white;" >reputation</span></span>-
+										<span title="Altın"><i class="fa fa-circle" style="color:gold;"></i> <span id="stackoverflow_gold" style="color: white;" >Gold</span>&nbsp;</span>
+										<span title="Bronz"><i class="fa fa-circle" style="color:#cd7f32"></i> <span id="stackoverflow_bronze" style="color: white;" >Bronze</span>&nbsp;</span>
+										<span title="Gümüş"><i class="fa fa-circle" style="color:gray"></i> <span id="stackoverflow_silver" style="color: white;" >Silver</span></span>
+									</div>
+									<div class="location"><span id="stackoverflow_location" style="color: white;" >Location</span></div>
+									<div class="blog"><a id="stackoverflow_blog" target="_blank" style="color: #ffffff85;">Blog</a></div>
+								</div>
+							</div>
+							<script>
+								stackoverflow();
+								function stackoverflow() {
+									$.ajax({
+										url: 'https://api.stackexchange.com/2.2/users/11922928?order=desc&sort=reputation&site=stackoverflow',
+										dataType: 'jsonp',
+										success: function (results) {
+											var user = results.items[0];
+											var display_name = user.display_name;
+											var link = user.link;
+											var location = user.location;
+											var profile_image = user.profile_image;
+											var reputation = user.reputation;
+											var website_url = user.website_url;
+											var gold = user.badge_counts.gold;
+											var bronze = user.badge_counts.bronze;
+											var silver = user.badge_counts.silver;
+											console.log(user);
+											document.getElementById("stackoverflow_link").href = link;
+											document.getElementById("stackoverflow_resim").src = profile_image;
+											document.getElementById("stackoverflow_bio").innerHTML = display_name;
+											document.getElementById("reputation").innerHTML = reputation;
+											document.getElementById("stackoverflow_blog").href = website_url;
+											document.getElementById("stackoverflow_blog").innerHTML = website_url;
+											document.getElementById("stackoverflow_location").innerHTML = location;
+											document.getElementById("stackoverflow_gold").innerHTML = gold;
+											document.getElementById("stackoverflow_bronze").innerHTML = bronze;
+											document.getElementById("stackoverflow_silver").innerHTML = silver;
+										}
+									})
+								}
+							</script>
+						</div>
+					</aside>
+				</div>
+			</div>
+		</div>
+		<footer class="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col col-12">
+						<div class="footer-bottom">
+							<div class="copyright">
+								<p>&copy; 2019 <a href="https://github.com/senocak" target="_blank">Anıl Şenocak</a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+		<script src="/jquery.waitforimages.min.js"></script>
+        <script src="/common.js"></script>
+		<script src="/prism.js"></script>
+		<script>
+			CKEDITOR.replace('editor', {
+				filebrowserBrowseUrl: "/ckeditor/resimler",
+				filebrowserImageBrowseUrl: "/ckeditor/resimler",
+				extraPlugins: 'codesnippet,tableresize',
+				height: '230px',
+			});
+		</script>
+		<script src="/bootstrap-tagsinput.min.js"></script>
+	</body>
+</html>

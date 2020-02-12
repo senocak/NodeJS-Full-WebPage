@@ -1,0 +1,102 @@
+@layout('layouts.app')
+@section('article')
+    <button class="buton_yesil"><a href="/admin/yazi/ekle">Yazı Ekle</a></button>
+    <style>
+        .page_buton{
+            box-sizing: border-box;
+            display: inline-block;
+            min-width: 1.5em;
+            padding: 0.5em;
+            margin-left: 2px;
+            text-align: center;
+            text-decoration: none !important;
+            cursor: pointer;
+            *cursor: hand;
+            border: 1px solid transparent;
+        }
+        .sortable{
+            cursor: move;
+        }
+    </style>
+    <table class="table table-bordered w-auto" id="example">
+        <thead>
+            <tr>
+                <th>Başlık</th>
+                <th style="text-align: center">Kategori</th>
+                <th style="text-align: center">Tarih</th>
+                <th style="text-align: center">İşlemler</th>
+            </tr>
+        </thead>
+        <tbody id="sortable">
+            @each(y in yazilar)
+                <tr id="item-{{ y._id }}">
+                    <td class="sortable">
+                        {{ y.baslik }}
+                        <a href="/yazi/{{ y.url }}" target="_blank" style="float: right;"><i class="fas fa-external-link-alt"></i></a>
+                    </td>
+                    <td>
+                        @each(k in y.kategori)
+                            <div style="text-align: center">{{ k.baslik }}</div>
+                        @endeach
+                    </td>
+                    <td>
+                        <div style="text-align: center">{{ date(y.tarih, 'DD.MM.YYYY') }}</div>
+                    </td>
+                    <td style="text-align: center;">
+                        <a href="/admin/yazi/{{ y._id }}/oneCikarilan" class="buton" style="background-color: #0000ff7d;">
+                            @if(y.oneCikarilan == 1)
+                                Öne Çıkarma
+                            @else
+                                Öne Çıkar
+                            @endif
+                        </a>
+                        <a href="/admin/yazi/{{ y._id }}/duzenle" class="buton" style="background-color: #ffff0070;">Düzenle</a>
+                        <a href="/admin/yazi/{{ y._id }}/sil" class="buton" style="background-color: #ff0000a6;" onclick="return confirm('Silmek İstediğinize Emin Misiniz?')">Sil</a>
+                    </td>
+                </tr>
+            @endeach
+        </tbody>
+    </table>
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function() {
+            $('#example').dataTable({
+                "bPaginate": true,
+                "bLengthChange": true,
+                "bFilter": true,
+                "bInfo": false,
+                "bAutoWidth": false,
+                "bSort": false,
+                "pageLength": 10,
+			    "language": {
+                    "lengthMenu": '<select class="input">'+
+                                        '<option value="10" selected>10</option>'+
+                                        '<option value="20">20</option>'+
+                                        '<option value="30">30</option>'+
+                                        '<option value="40">40</option>'+
+                                        '<option value="50">50</option>'+
+                                        '<option value="-1">Hepsi</option>'+
+                                    '</select>'
+                }
+            });
+
+        });
+        $(function() {
+            $( "#sortable" ).sortable({
+                revert: true,
+                handle: ".sortable",
+                stop: function (event, ui){
+                    $.ajax({
+                        type: "POST",
+                        dataType: "json",
+                        data: $(this).sortable('serialize'),
+                        url: '/admin/yazi/sira',
+                        success: function(msg){
+                            alert(msg.mesaj)
+                        }
+                    });
+                }
+            });
+            $( "#sortable" ).disableSelection();
+        });
+    </script>
+@endsection

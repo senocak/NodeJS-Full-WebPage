@@ -1,0 +1,50 @@
+@layout('layouts.app')
+@section('article')
+    <div class="row">
+        @each(yazi in yazilar)
+            <article class="article col col-12 col-t-4">
+                <div class="article-box">
+                    <div class="article-head">
+                        @each(yk in yazi.kategori)
+                            <a href="/yazi/{{ $parent.yazi.url }}" class="article-image" style="background-image: url(/kategori/{{ yk.resim }});background-size: contain;"></a>
+                        @endeach
+                    </div>
+                    <div class="article-content">
+                        <div class="article-info">
+                            <div class="article-date">
+                                @if(yazi.oneCikarilan == 1)
+                                    <i class="fas fa-check-circle" title="Öne Çıkarılan İçerik"></i>
+                                @endif
+                                <span class="date"><time>{{ date(yazi.tarih, 'DD.MM.YYYY') }}</time></span>
+                            </div>
+                            <div class="article-tag">
+                                @each(yk in yazi.kategori)
+                                    <a href="/kategori/{{ yk.url }}" class="tag" style="float:right; text-align:right;">{{ yk.baslik }}</a>
+                                @endeach
+                            </div>
+                        </div>
+                        <h2 class="article-title"><a href="/yazi/{{ yazi.url }}" title="{{ yazi.baslik }}">{{ yazi.baslik }}</a></h2>
+                        <p class="article-excerpt" style="text-align: justify;">{{yazi.icerik.substring(0, 250).replace(/(<([^>]+)>)/ig,"")}}</p>
+                    </div>
+                </div>
+            </article>
+        @else
+            Yazı Bulunamadı.
+        @endeach
+    </div>
+    <div class="row">
+        <div class="col col-12">
+            <div class="pagination">
+                <ul class="pagination-list list-reset">
+                    @each(number in range(1, toplam+1))
+                        @if(aktif == number)
+                            <li class="older-posts"><a class="older-link" style="background: rgba(28, 29, 31, 0.95);">{{number}}</a></li>
+                        @else
+                            <li class="older-posts"><a class="older-link" href="{{baseUrl}}sayfa/{{number}}">{{ number }}</a></li>
+                        @endif
+                    @endeach
+                </ul>
+            </div>
+        </div>
+    </div>
+@endsection

@@ -1,0 +1,52 @@
+@layout('layouts.app')
+@section('article')
+    @each(yazi in yazilar)
+        <article class="article col col-12">
+            <div class="article-box">
+                <div class="article-content">
+                    @each(yk in yazi.kategori)
+                        <img src="/kategori/{{ yk.resim }}" alt="">
+                    @endeach
+                    <div class="article-info">
+                        <div class="article-date">
+                            <span class="date"><time>{{ date(yazi.tarih, 'DD.MM.YYYY') }}</time></span>
+                        </div>
+                        <div class="article-tag">
+                            @each(yk in yazi.kategori)
+                                <a href="/kategori/{{ yk.url }}" class="tag" style="float:right; text-align:right;">{{ yk.baslik }}</a>
+                            @endeach
+                        </div>
+                    </div>
+                    <h1 class="article-title"><a href="/yazi/{{ yazi.url }}" title="{{ yazi.baslik }}">{{ yazi.baslik }}</a></h1>
+                    <div class="article-excerpt" style="text-align: justify;">{{{yazi.icerik}}}</div>
+                </div>
+                @each(item in yazi.etiketler.split(","))
+                    <a class="etiket">{{item}}</a>
+                @endeach
+            </div>
+        </article>
+    @endeach
+    <form method="POST" action="/yazi/yorum/ekle">
+        <input class="input" type="email" name="email" placeholder="Email Adresiniz" autocomplete="off">
+        <textarea class="input" rows="2" name="yorum" placeholder="Yorumunuz" style="resize:none"></textarea>
+        @each(yazi in yazilar)
+            <input type="hidden" name="yazi_id" value="{{ yazi._id }}" readonly>
+            <input type="hidden" name="yazi_url" value="{{ yazi.url }}" readonly>
+        @endeach
+        <input type="submit" value="Yorum Yaz" style="width: 100%;background-color: black;color: white;padding: 14px 20px;margin: 8px 0;border: none;border-radius: 4px;cursor: pointer;">
+    </form>
+    <section class="bg-white shadow-sm p-2 clearfix">
+        @each(yorum in yorumlar)
+            <div>
+                <img src='/avatar.png' style="width: 70px;display: inline-block;vertical-align: top;">
+                <div style="display: inline-block;vertical-align: top;width: 90%;text-align: justify;">
+                    <h5 style="display: contents;">{{yorum.email}}</h5>
+                    <a>{{ date(yorum.tarih, 'DD.MM.YYYY') }}</a>
+                    <p>{{yorum.yorum}}</p>
+                </div>
+            </div>
+        @else
+            İlk Yorum Yazan Sen Ol
+        @endeach
+    </section>
+@endsection

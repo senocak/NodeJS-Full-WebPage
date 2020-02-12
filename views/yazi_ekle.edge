@@ -1,0 +1,33 @@
+@layout('layouts.app')
+@section('article')
+    <form action="/admin/yazi/ekle" method="POST"  encType="multipart/form-data">
+        <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+                <input type="text" name="baslik" placeholder="Başlık" class="input" required>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+                <select class="input" name="kategori">
+                    @each(kategori in kategoriler)
+                        <option value="{{kategori._id}}">{{kategori.baslik}}</option>
+                    @endeach
+                </select>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+                <textarea name="icerik" placeholder="İçerik ..." cols="30" rows="10" class="input" id="editor" required></textarea>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+                <input type="text" name="etiketler" placeholder="Etiketler arasına (,) koyunuz" class="input" data-role="tagsinput">
+            </div>
+        </div>
+        <div class="form-group my-4 text-center">
+            <button class="buton_yesil" style="background-color: green">Yazı Ekle</button>
+            <a class="btn btn-danger" href="/admin/yazi">Geri Dön</a>
+        </div>
+    </form>
+@endsection
