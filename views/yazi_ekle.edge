@@ -1,4 +1,9 @@
 @layout('layouts.app')
+@section('header')
+    <script type="text/javascript" language="javascript" src="/jquery.dataTables.js"></script>
+    <script src="https://cdn.ckeditor.com/4.13.1/full-all/ckeditor.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+@endsection
 @section('article')
     <form action="/admin/yazi/ekle" method="POST"  encType="multipart/form-data">
         <div class="control-group">
@@ -30,4 +35,15 @@
             <a class="btn btn-danger" href="/admin/yazi">Geri Dön</a>
         </div>
     </form>
+@endsection
+@section('footer')
+    <script>
+        CKEDITOR.replace('editor', {
+            filebrowserBrowseUrl: "/ckeditor/resimler",
+            filebrowserImageBrowseUrl: "/ckeditor/resimler",
+            extraPlugins: 'codesnippet,tableresize',
+            height: '230px',
+        });
+    </script>
+    <script src="/bootstrap-tagsinput.min.js"></script>
 @endsection

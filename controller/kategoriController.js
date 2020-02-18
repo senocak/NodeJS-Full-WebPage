@@ -1,20 +1,22 @@
-var path = require('path');
-var express = require("express");
-const Kategori = require("../model/Kategori");
-const Yazilar = require("../model/Yazi");
-const fileUpload = require("express-fileupload");
-const fs = require('fs')
+const   path = require('path'),
+        express = require("express"),
+        Kategori = require("../model/Kategori"),
+        Yazilar = require("../model/Yazi"),
+        fileUpload = require("express-fileupload"),
+        fs = require('fs'),
+        stackoverflow = JSON.parse(fs.readFileSync('./database/veriler/stackoverflow.json')),
+        github = JSON.parse(fs.readFileSync('./database/veriler/github.json'));
 
 module.exports.kategoriListGet = async(req, res)=>{
     const kategoriler = await Kategori.find({}).sort({ tarih: -1 })
     var user = {userId:req.session.userId, userEmail : req.session.userEmail }
-    res.render("kategori_index", {kategoriler, user});
+    res.render("kategori_index", {kategoriler, user, stackoverflow, github});
 }
 module.exports.kategoriListByIdGet = async(req, res)=>{
     const kategori_id = req.params.kategori_id
     const kategoriler = await Kategori.find({"_id":kategori_id}).sort({ tarih: -1 })
     var user = {userId:req.session.userId, userEmail : req.session.userEmail }
-    res.render("kategori_index", {kategoriler, user});
+    res.render("kategori_index", {kategoriler, user, stackoverflow, github});
 }
 module.exports.kategoriEklePost = function(req, res) {
     if (Object.keys(req.files).length == 0) {
@@ -51,7 +53,7 @@ module.exports.kategoriDuzenleGet = async(req, res)=>{
     const kategori = await Kategori.find({_id:kategori_id})
     var user = {userId:req.session.userId, userEmail : req.session.userEmail }
     const kategoriler = await Kategori.find({}).sort({ tarih: -1 })
-    res.render("kategori_duzenle",{kategori, user, kategoriler});
+    res.render("kategori_duzenle",{kategori, user, kategoriler, stackoverflow, github});
 }
 module.exports.kategoriDuzenlePost = async(req, res)=>{
     const kategori_id = req.params.kategori_id

@@ -1,16 +1,15 @@
 const   fs = require('fs'),
-        path = require('path');
-
-var express = require("express");
-var router = express.Router();
-var indexController = require("./controller/IndexController");
-var YaziController = require("./controller/YaziController");
-var KategoriController = require("./controller/KategoriController");
-var AuthController = require("./controller/AuthController");
-var YorumController = require("./controller/YorumController");
+        path = require('path'),
+        express = require("express"),
+        router = express.Router();
+var     indexController = require("./controller/IndexController"),
+        YaziController = require("./controller/YaziController"),
+        KategoriController = require("./controller/KategoriController"),
+        AuthController = require("./controller/AuthController"),
+        YorumController = require("./controller/YorumController");
 
 router.get("/", indexController.index);
-router.get("/cv", indexController.cv);
+router.get("/hakkimda", indexController.hakkimda);
 router.get("/sayfa/:sira", indexController.index);
 router.get("/yazi/:yazi_url", indexController.yazi);
 router.post("/yazi/yorum/ekle", indexController.yorumEklePost);

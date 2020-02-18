@@ -1,10 +1,13 @@
-var express = require("express");
-const Kullanici = require("../model/Kullanici");
-const Kategori = require("../model/Kategori");
+var express = require("express"),
+    Kullanici = require("../model/Kullanici"),
+    Kategori = require("../model/Kategori"),
+    fs = require('fs'),
+    stackoverflow = JSON.parse(fs.readFileSync('./database/veriler/stackoverflow.json')),
+    github = JSON.parse(fs.readFileSync('./database/veriler/github.json'));
 
 module.exports.indexGet = async(req, res)=>{
     const kategoriler = await Kategori.find({}).sort({ tarih: -1 });
-    res.render("auth", { kategoriler});
+    res.render("auth", { kategoriler, stackoverflow, github});
 }
 module.exports.indexLoginPost = async(req, res)=>{
     const email = req.body.email;
