@@ -1,0 +1,15 @@
+@layout('layouts.app')
+@section('article')
+    <button onclick="github()">Github</button>
+    <script>
+        function github() {
+            $.ajax({
+                url: '/admin/ayar/github/senocak',
+                success: function (results) {
+                    console.log(results.data);
+                    
+                }
+            })
+        } 
+    </script>
+@endsection

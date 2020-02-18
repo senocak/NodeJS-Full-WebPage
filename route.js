@@ -1,12 +1,13 @@
 const   fs = require('fs'),
         path = require('path'),
         express = require("express"),
-        router = express.Router();
-var     indexController = require("./controller/IndexController"),
-        YaziController = require("./controller/YaziController"),
-        KategoriController = require("./controller/KategoriController"),
+        router = express.Router(),
         AuthController = require("./controller/AuthController"),
-        YorumController = require("./controller/YorumController");
+        indexController = require("./controller/IndexController"),
+        YaziController = require("./controller/Admin/YaziController"),
+        KategoriController = require("./controller/Admin/KategoriController"),
+        YorumController = require("./controller/Admin/YorumController"),
+        AyarController = require("./controller/Admin/AyarController");
 
 router.get("/", indexController.index);
 router.get("/hakkimda", indexController.hakkimda);
@@ -40,6 +41,9 @@ router.post("/admin/kategori/:kategori_id/duzenle", AuthController.redirectLogin
 router.get("/admin/yorum", AuthController.redirectLogin, YorumController.YorumListGet);
 router.get("/admin/yorum/:yorum_id/sil", AuthController.redirectLogin, YorumController.YorumSilGet);
 
+router.get("/admin/ayar", AyarController.index);
+router.get("/admin/ayar/github/:username", AyarController.fetchGithub);
+
 router.get('/ckeditor/resimler', function (req, res){
     const images = fs.readdirSync(__dirname+'/public/upload')
     var sorted = []
@@ -48,7 +52,7 @@ router.get('/ckeditor/resimler', function (req, res){
             sorted.push({"image" : "/upload/"+item})
         }
     }
-    res.render("resimler", { sorted });
+    res.render("admin.resimler", { sorted });
 })
 router.post('/ckeditor/resimler/ekle', function (req, res, next){
     if (Object.keys(req.files).length == 0) {

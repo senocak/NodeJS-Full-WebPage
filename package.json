@@ -10,6 +10,7 @@
   "author": "Anıl Şenocak",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.19.2",
     "connect-redis": "^4.0.4",
     "cookie-parser": "^1.4.4",
     "edge.js": "^1.1.4",

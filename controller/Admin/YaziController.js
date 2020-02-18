@@ -1,5 +1,5 @@
-const   Yazi = require("../model/Yazi"),
-        Kategori = require("../model/Kategori"),
+const   Yazi = require("../../model/Yazi"),
+        Kategori = require("../../model/Kategori"),
         fs = require('fs'),
         stackoverflow = JSON.parse(fs.readFileSync('./database/veriler/stackoverflow.json')),
         github = JSON.parse(fs.readFileSync('./database/veriler/github.json'));
@@ -8,12 +8,12 @@ module.exports.yaziListGet = async(req, res)=>{
     const yazilar = await Yazi.find({}).sort({ sira: 1 }).populate('kategori')
     var user = {userId:req.session.userId, userEmail : req.session.userEmail }
     const kategoriler = await Kategori.find({}).sort({ tarih: -1 })
-    res.render("yazilar", {yazilar, user, kategoriler, stackoverflow, github});
+    res.render("admin.yazilar", {yazilar, user, kategoriler, stackoverflow, github});
 }
 module.exports.yaziEkleGet = async(req, res)=>{
     const kategoriler = await Kategori.find({}).sort({ tarih: -1 })
     var user = {userId:req.session.userId, userEmail : req.session.userEmail }
-    res.render("yazi_ekle", {kategoriler, user, stackoverflow, github});
+    res.render("admin.yazi_ekle", {kategoriler, user, stackoverflow, github});
 }
 module.exports.yaziEklePost = async(req, res)=>{
     const myobj = {
@@ -33,7 +33,7 @@ module.exports.yaziDuzenleGet = async(req, res)=>{
     const yazi = await Yazi.find({"_id":yazi_id}).populate('kategori')
     const kategoriler = await Kategori.find({}).sort({ tarih: -1 })
     var user = {userId:req.session.userId, userEmail : req.session.userEmail }
-    res.render("yazi_duzenle", {kategoriler, yazi, user, stackoverflow, github});
+    res.render("admin.yazi_duzenle", {kategoriler, yazi, user, stackoverflow, github});
 }
 module.exports.yaziDuzenlePost = async(req, res)=>{
     const yazi_id = req.params.yazi_id
