@@ -8,9 +8,9 @@
 		<meta name='description' content='Anıl Şenocak'>
 		<link href="https://fonts.googleapis.com/css?family=Nunito:400,700" rel="stylesheet">
 		<script src="https://kit.fontawesome.com/a076d05399.js"></script>
-		<link rel="stylesheet" href="/style.css">
-        <link rel="stylesheet" href="/prism.css">
-		<script type="text/javascript" language="javascript" src="/jquery-1.12.4.js"></script>
+		<link rel="stylesheet" href="/css/style.css">
+        <link rel="stylesheet" href="/css/prism.css">
+		<script type="text/javascript" language="javascript" src="/js/jquery-1.12.4.js"></script>
 		<link rel="icon" type="image/png" href="/avatar.png" />
 		@!section('header')
 	</head>
@@ -139,7 +139,7 @@
 								<div class="info" style="width: 160px; text-align: right; font-size: 14px;">
 									<div class="user-profile-bio">&nbsp;<span style="color: white;">{{stackoverflow.items[0].display_name}}</span></div>
 									<div class="meta">
-										{{stackoverflow.items[0].reputation}} - 
+										{{stackoverflow.items[0].reputation}}/
 										<span><i class="fa fa-circle" style="color:gold;"></i><span style="color: white;">{{stackoverflow.items[0].badge_counts.gold}}</span>&nbsp;</span>
 										<span><i class="fa fa-circle" style="color:#cd7f32;"></i><span style="color: white;">{{stackoverflow.items[0].badge_counts.bronze}}</span>&nbsp;</span>
 										<span><i class="fa fa-circle" style="color:gray;"></i><span style="color: white;">{{stackoverflow.items[0].badge_counts.silver}}</span></span>
@@ -174,7 +174,7 @@
 					</aside>
 				</div>
 			</div>
-		</div>		
+		</div>
 		<footer class="footer">
 			<div class="container">
 				<div class="row">
@@ -188,9 +188,9 @@
 				</div>
 			</div>
 		</footer>
-		<script src="/jquery.waitforimages.min.js"></script>
-        <script src="/common.js"></script>
-		<script src="/prism.js"></script>
+		<script src="/js/jquery.waitforimages.min.js"></script>
+        <script src="/js/common.js"></script>
+		<script src="/js/prism.js"></script>
 		@!section('footer')
 	</body>
 </html>

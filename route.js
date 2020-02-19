@@ -41,8 +41,9 @@ router.post("/admin/kategori/:kategori_id/duzenle", AuthController.redirectLogin
 router.get("/admin/yorum", AuthController.redirectLogin, YorumController.YorumListGet);
 router.get("/admin/yorum/:yorum_id/sil", AuthController.redirectLogin, YorumController.YorumSilGet);
 
-router.get("/admin/ayar", AyarController.index);
-router.get("/admin/ayar/github/:username", AyarController.fetchGithub);
+router.get("/admin/ayar", AuthController.redirectLogin, AyarController.index);
+router.get("/admin/ayar/stackoverflow/:username", AuthController.redirectLogin, AyarController.fetchStackoverflow);
+router.get("/admin/ayar/github/:username", AuthController.redirectLogin, AyarController.fetchGithub);
 
 router.get('/ckeditor/resimler', function (req, res){
     const images = fs.readdirSync(__dirname+'/public/upload')

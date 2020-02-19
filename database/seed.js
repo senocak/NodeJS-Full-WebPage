@@ -52,5 +52,15 @@ for(var yorum in yorumlar){
 }
 const Kullanici = require('../model/Kullanici');
 Kullanici.collection.drop();
-Kullanici.create([{ _id:"5cb9bb7ab9acda2d6cf92b37", email: 'lorem@ipsum.com', sifre: 'lorem' }])
+Kullanici.create([
+    { 
+        _id:"5cb9bb7ab9acda2d6cf92b37",
+        email: 'lorem@ipsum.com',
+        sifre: 'lorem',
+        github_username: "senocak",
+        github_value:"github_value",
+        stackoverflow_username:"11922928",
+        stackoverflow_value:"stackoverflow_value"
+    }
+])
 //module.exports = Kategori, Yazi, Yorum, Kullanici;

@@ -1,12 +1,13 @@
 @layout('layouts.app')
 @section('header')
-    <script type="text/javascript" language="javascript" src="/jquery.dataTables.js"></script>
+    <script type="text/javascript" language="javascript" src="/js/jquery.dataTables.js"></script>
     <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
 @endsection
 @section('article')
-    <button class="buton_yesil"><a href="/admin/yazi/ekle">Yazı Ekle</a></button>
+    <a href="/admin/yazi/ekle" class="buton-dark" style="width: 100%">Yazı Ekle</a>
     <style>
         .page_buton{
+            /*sPageButton for Datatable Pagination*/
             box-sizing: border-box;
             display: inline-block;
             min-width: 1.5em;
@@ -47,15 +48,15 @@
                         <div style="text-align: center">{{ date(y.tarih, 'DD.MM.YYYY') }}</div>
                     </td>
                     <td style="text-align: center;">
-                        <a href="/admin/yazi/{{ y._id }}/oneCikarilan" class="buton" style="background-color: #0000ff7d;">
+                        <a href="/admin/yazi/{{ y._id }}/oneCikarilan" style="padding: 3px;border-radius: 4px;cursor: pointer;background-color: #0000ff7d;">
                             @if(y.oneCikarilan == 1)
                                 Öne Çıkarma
                             @else
                                 Öne Çıkar
                             @endif
                         </a>
-                        <a href="/admin/yazi/{{ y._id }}/duzenle" class="buton" style="background-color: #ffff0070;">Düzenle</a>
-                        <a href="/admin/yazi/{{ y._id }}/sil" class="buton" style="background-color: #ff0000a6;" onclick="return confirm('Silmek İstediğinize Emin Misiniz?')">Sil</a>
+                        <a href="/admin/yazi/{{ y._id }}/duzenle" style="padding: 3px;border-radius: 4px;cursor: pointer;background-color: #ffff0070;">Düzenle</a>
+                        <a href="/admin/yazi/{{ y._id }}/sil" style="padding: 3px;border-radius: 4px;cursor: pointer;background-color: #ff0000a6;" onclick="return confirm('Silmek İstediğinize Emin Misiniz?')">Sil</a>
                     </td>
                 </tr>
             @endeach

@@ -1,15 +1,39 @@
 @layout('layouts.app')
 @section('article')
-    <button onclick="github()">Github</button>
+    <style>
+    </style>
+    <a class="buton-dark" id="stackoverflow" onclick="stackoverflow()">stackoverflow</a>
+    <a class="buton-dark" id="github" onclick="github()">github</a>
     <script>
+        function stackoverflow() {
+            var buton = document.getElementById("stackoverflow")
+            buton.innerHTML = "<i class='fas fa-sync fa-spin'></i>";
+            $.ajax({
+                url: '/admin/ayar/stackoverflow/11922928',
+                success: function (results) {
+                    if(results.status == true){
+                        buton.innerHTML = "stackoverflow <i class='fas fa-check'></i>";
+                    }else{
+                        buton.innerHTML = "stackoverflow <i class='fas fa-times'></i>";
+                    }
+                }
+            })
+        } 
         function github() {
+            var buton = document.getElementById("github")
+            buton.innerHTML = "<i class='fas fa-sync fa-spin'></i>";
             $.ajax({
                 url: '/admin/ayar/github/senocak',
                 success: function (results) {
-                    console.log(results.data);
-                    
+                    if(results.status == true){
+                        buton.innerHTML = "github <i class='fas fa-check'></i>";
+                    }else{
+                        buton.innerHTML = "github <i class='fas fa-times'></i>";
+                    }
                 }
             })
         } 
     </script>
+
+
 @endsection
