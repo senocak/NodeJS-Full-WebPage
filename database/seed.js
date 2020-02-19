@@ -1,5 +1,13 @@
-const db = require("./db");
-const fs = require('fs');
+const   mongoose = require('mongoose'),
+        dotenv = require('dotenv'),
+        fs = require('fs');
+dotenv.config();
+mongoose.connect(process.env.MongoConnection, { useNewUrlParser: true })
+        .then(() =>  console.error('Connected to Mongo'))
+        .catch(err => console.error('Something wrong', err))
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
 
 const Kategori = require('../model/Kategori');
 Kategori.collection.drop();
@@ -53,7 +61,7 @@ for(var yorum in yorumlar){
 const Kullanici = require('../model/Kullanici');
 Kullanici.collection.drop();
 Kullanici.create([
-    { 
+    {
         _id:"5cb9bb7ab9acda2d6cf92b37",
         email: 'lorem@ipsum.com',
         sifre: 'lorem',

@@ -13,6 +13,7 @@
     "axios": "^0.19.2",
     "connect-redis": "^4.0.4",
     "cookie-parser": "^1.4.4",
+    "dotenv": "^8.2.0",
     "edge.js": "^1.1.4",
     "express": "^4.16.4",
     "express-edge": "^1.0.0",
