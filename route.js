@@ -72,5 +72,4 @@ router.post('/ckeditor/resimler/sil', function(req, res, next){
     }
     res.redirect('back')
 });
-
 module.exports = router;

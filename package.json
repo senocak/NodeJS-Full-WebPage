@@ -1,7 +1,7 @@
 {
   "name": "nodejs-blog",
   "version": "1.0.0",
-  "description": "NodeJS ve MongoDB kullanarak basit blog projesi",
+  "description": "NodeJS ve MongoDB Blog Script",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
