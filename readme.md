@@ -59,3 +59,18 @@ Daha sonra server'ımızı `node index.js` ile değil de `nodemon index.js` ile 
 #NOT
 >Projeyi çalıştırmak için nodejs ve mongodb yüklü olduğunu varsayarsak sadece bu dizine gidip `npm install` komutunu konsol ekranında koşmak ve browserdan `http://localhost:4000` adresini ziyaret etmek olacaktır. Ancak ekranda hiç gönderi kayıtlı olmadığını göreceksiniz. Bunun için konsol ekranında sadece seed.js dosyasını çalıştırarak `node seed.js` dummy verilerinin eklendiğini görebiliriz.
 - Session işlemlerinde loglarda `undefined` hatası alıyorsanız çözümü `redis-server.exe` çalışmadığı içindir.
+
+- docker build -t blog:1.0 .
+    - docker rm -f blog
+- docker run -d -p 3000:3000 --name blog blog:1.0
+- docker exec -it blog bash
+	- npm i -g pm2
+	- pm2 start index.js
+- docker run --name mysql -p 3310:3306 -e MYSQL_ROOT_PASSWORD=senocak -d mysql:8.0.1
+- docker run --name phpmyadmin2 -d --link mysql:db -p 3320:80 phpmyadmin/phpmyadmin
+    - docker exec -it mysql bash
+- ProxyServer
+    - docker pull nginx:alpine
+        - docker volume create volume-nginx
+        - docker run -d --restart always --name proxy -p 80:80 -p 443:443 -p 23:23 -v volume-nginx:/etc/nginx nginx:alpine
+            - cd /var/lib/docker/volumes/volume-nginx/_data/conf.d/ ls
