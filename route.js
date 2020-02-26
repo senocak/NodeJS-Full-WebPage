@@ -1,13 +1,13 @@
-const   fs = require('fs'),
-        path = require('path'),
-        express = require("express"),
-        router = express.Router(),
-        AuthController = require("./controller/AuthController"),
-        indexController = require("./controller/IndexController"),
-        YaziController = require("./controller/Admin/YaziController"),
-        KategoriController = require("./controller/Admin/KategoriController"),
-        YorumController = require("./controller/Admin/YorumController"),
-        AyarController = require("./controller/Admin/AyarController");
+const   fs                  = require('fs'),
+        path                = require('path'),
+        express             = require("express"),
+        router              = express.Router(),
+        AuthController      = require("./controller/AuthController"),
+        indexController     = require("./controller/IndexController"),
+        YaziController      = require("./controller/Admin/YaziController"),
+        KategoriController  = require("./controller/Admin/KategoriController"),
+        YorumController     = require("./controller/Admin/YorumController"),
+        AyarController      = require("./controller/Admin/AyarController");
 
 router.get("/", indexController.index);
 router.get("/hakkimda", indexController.hakkimda);

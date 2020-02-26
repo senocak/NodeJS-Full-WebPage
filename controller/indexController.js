@@ -1,11 +1,11 @@
-var     path = require('path'),
-        express = require("express"),
-        Yazi = require("../model/Yazi"),
-        Kategori = require("../model/Kategori"),
-        Yorum = require("../model/Yorum"),
-        fs = require('fs'),
-        stackoverflow = JSON.parse(fs.readFileSync('./database/veriler/stackoverflow.json')),
-        github = JSON.parse(fs.readFileSync('./database/veriler/github.json'));
+var     path        = require('path'),
+        express     = require("express"),
+        Yazi        = require("../model/Yazi"),
+        Kategori    = require("../model/Kategori"),
+        Yorum       = require("../model/Yorum"),
+        fs          = require('fs'),
+        stackoverflow   = JSON.parse(fs.readFileSync('./database/veriler/stackoverflow.json')),
+        github          = JSON.parse(fs.readFileSync('./database/veriler/github.json'));
 
 module.exports.hakkimda = async(req, res)=>{
     const kategoriler = await Kategori.find({}).sort({ tarih: -1 });
