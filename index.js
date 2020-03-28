@@ -9,11 +9,10 @@ const   express         = require('express'),
         logger          = require('morgan'),
         edge            = require('edge.js'),
         moment          = require('moment'),
-        dotenv          = require('dotenv')
+        dotenv          = require('dotenv').config()
         //redis           = require('redis'),
         //client          = redis.createClient(),
         //redisStore      = require('connect-redis')(session);
-dotenv.config();
 app.use(expressEdge);
 app.use(fileUpload());
 app.use(logger('dev'));
