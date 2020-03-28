@@ -1,7 +1,6 @@
-const   mongoose = require('mongoose'),
-        dotenv = require('dotenv'),
-        fs = require('fs');
-dotenv.config();
+const   mongoose    = require('mongoose'),
+        dotenv      = require('dotenv').config({path:__dirname+'/./../.env'})
+        fs          = require('fs');
 mongoose.connect(process.env.MongoConnection, { useNewUrlParser: true })
         .then(() =>  console.error('Connected to Mongo'))
         .catch(err => console.error('Something wrong', err))
