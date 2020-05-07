@@ -66,10 +66,10 @@ Daha sonra server'ımızı `node index.js` ile değil de `nodemon index.js` ile 
 - docker exec -it blog bash
 	- npm i -g pm2
 	- pm2 start index.js
-- docker run --name mysql -p 3310:3306 -e MYSQL_ROOT_PASSWORD=senocak -d mysql:8.0.1
-    - docker run -d --name MongoDB -p 27017:27017 mongo
-- docker run --name phpmyadmin2 -d --link mysql:db -p 3320:80 phpmyadmin/phpmyadmin
-    - docker exec -it mysql bash
+- docker run -d --name MongoDB -p 27017:27017 mongo
+    - docker run --name mysql -p 3310:3306 -e MYSQL_ROOT_PASSWORD=senocak -d mysql:8.0.1
+        - docker exec -it mysql bash
+    - docker run --name phpmyadmin2 -d --link mysql:db -p 3320:80 phpmyadmin/phpmyadmin
 - ProxyServer
     - docker pull nginx:alpine
         - docker volume create volume-nginx

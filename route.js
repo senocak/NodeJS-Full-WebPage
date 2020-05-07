@@ -7,7 +7,8 @@ const   fs                  = require('fs'),
         YaziController      = require("./controller/Admin/YaziController"),
         KategoriController  = require("./controller/Admin/KategoriController"),
         YorumController     = require("./controller/Admin/YorumController"),
-        AyarController      = require("./controller/Admin/AyarController");
+        AyarController      = require("./controller/Admin/AyarController"),
+        ApiController       = require("./controller/ApiController");
 
 router.get("/", indexController.index);
 router.get("/hakkimda", indexController.hakkimda);
@@ -73,3 +74,11 @@ router.post('/ckeditor/resimler/sil', function(req, res, next){
     res.redirect('back')
 });
 module.exports = router;
+//////////////////////7 API
+router.get("/api/yazilar", ApiController.getTumYazilar);
+router.get("/api/yazilar/:yazi_url", ApiController.getYazi);
+router.get("/api/yorumlar", ApiController.getYorumlar); // ?populate=1
+router.get("/api/yorumlar/:yazi_url", ApiController.getYorumForYazi); // ?populate=1
+router.get("/api/kategoriler", ApiController.getTumKategoriler);
+router.get("/api/kategoriler/:kategori_url", ApiController.getKategori);
+router.post("/api/login", ApiController.postLogin);

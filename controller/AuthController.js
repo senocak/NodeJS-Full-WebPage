@@ -1,9 +1,8 @@
-var express = require("express"),
-    Kullanici = require("../model/Kullanici"),
-    Kategori = require("../model/Kategori"),
-    fs = require('fs'),
-    stackoverflow = JSON.parse(fs.readFileSync('./database/veriler/stackoverflow.json')),
-    github = JSON.parse(fs.readFileSync('./database/veriler/github.json'));
+var Kullanici       = require("../model/Kullanici"),
+    Kategori        = require("../model/Kategori"),
+    fs              = require('fs'),
+    stackoverflow   = JSON.parse(fs.readFileSync('./database/veriler/stackoverflow.json')),
+    github          = JSON.parse(fs.readFileSync('./database/veriler/github.json'));
 
 module.exports.indexGet = async(req, res)=>{
     const kategoriler = await Kategori.find({}).sort({ tarih: -1 });
@@ -19,11 +18,10 @@ module.exports.indexLoginPost = async(req, res)=>{
     }else{
         console.log("Success");
         const kullanici = await Kullanici.find({email:email, sifre:sifre})
-        var {userId, userEmail, userSifre} = "";
+        var {userId, userEmail} = "";
         kullanici.forEach(element => {
-            userId = element._id,
-            userEmail = element.email,
-            userSifre = element.sifre
+            userId = element._id
+            userEmail = element.email
         });
         req.session.userId = userId;
         req.session.userEmail = userEmail;
@@ -35,7 +33,7 @@ module.exports.indexRegisterPost = async(req, res)=>{
     const sifre = req.body.sifre;
     const kullanici = await Kullanici.find({email:email, sifre:sifre}).countDocuments() //estimatedDocumentCount
     if (kullanici == "0") {
-        Kullanici.create({email: email, sifre: sifre }, (err, post) => {
+        Kullanici.create({email: email, sifre: sifre }, (err) => {
             if (err) console.log("Error:"+err);
             console.log("Kullanıcı Oluşturuldu.");
             res.redirect('/admin');
@@ -43,11 +41,10 @@ module.exports.indexRegisterPost = async(req, res)=>{
     }else{
         console.log("Success");
         const kullanici = await Kullanici.find({email:email, sifre:sifre})
-        var {userId, userEmail, userSifre} = "";
+        var {userId, userEmail} = "";
         kullanici.forEach(element => {
-            userId = element._id,
-            userEmail = element.email,
-            userSifre = element.sifre
+            userId = element._id
+            userEmail = element.email
         });
         req.session.userId = userId;
         req.session.userEmail = userEmail;

@@ -1,0 +1,9 @@
+GET http://localhost:3000/api/yazilar
+###
+GET http://localhost:3000/api/yazilar/laravel-adlandirma-kurallari
+###
+GET http://localhost:3000/api/yorumlar?populate=1
+###
+GET http://localhost:3000/api/yorumlar/laravel-adlandirma-kurallari
+###
+GET http://localhost:3000/api/kategoriler
