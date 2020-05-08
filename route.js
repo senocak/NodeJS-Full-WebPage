@@ -83,3 +83,4 @@ router.get("/api/kategoriler", ApiController.getTumKategoriler);
 router.get("/api/kategoriler/:kategori_url", ApiController.getKategori);
 router.post("/api/login", ApiController.postLogin);
 router.post("/api/profile", ApiController.authenticateJWT, ApiController.postProfile);
+router.post("/api/kategoriler/ekle", ApiController.authenticateJWT, ApiController.postKategoriEkle);
