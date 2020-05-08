@@ -1,6 +1,10 @@
-let     Yazi            = require("../model/Yazi"),
+let     
+        bcrypt          = require('bcrypt'),
+        jwt             = require('jsonwebtoken'),
+        Yazi            = require("../model/Yazi"),
         Kategori        = require("../model/Kategori"),
         Yorum           = require("../model/Yorum"),
+        Kullanici       = require("../model/Kullanici"),
         NOTFOUND        = {"mesaj":"Kayıt Bulunamadı"},
         STATUS_CODE     = 200;
 
@@ -68,7 +72,44 @@ module.exports.getKategori = async(req, res)=>{
     res.status(STATUS_CODE).json(kategoriler);
 }
 module.exports.postLogin = async(req, res)=>{
-    const email = req.body.email;
-    const sifre = req.body.sifre;
-    res.status(STATUS_CODE).json({email,sifre});
+    const   email        = req.body.email,
+            sifre        = req.body.sifre
+        let kullanici    = await Kullanici.findOne({email:email, sifre:sifre}).countDocuments(),
+            auth         = "";
+        if (kullanici == "0") {
+            STATUS_CODE = 400
+            auth        = NOTFOUND
+        }else{
+            kullanici   = await Kullanici.findOne({email:email, sifre:sifre})
+            STATUS_CODE = 200
+            auth        = "Bearer " + jwt.sign({ email: kullanici.email, sifre: bcrypt.hashSync(kullanici.sifre, 8) }, process.env.jwtKey, {expiresIn: 86400})
+        }
+    res.status(STATUS_CODE).json({auth});
+}
+module.exports.postProfile = async(req, res)=>{
+    const   email       = req.email.email,
+            sifre       = req.email.sifre,
+            kullanici   = await Kullanici.findOne({email:email})
+   res.status(STATUS_CODE).json({
+       "email": kullanici.email,
+       "github_username": kullanici.github_username,
+       "stackoverflow_username": kullanici.stackoverflow_username
+   })
+}
+module.exports.authenticateJWT = (req, res, next)=>{
+    let token = req.headers.authorization
+    if (token) {
+        token = token.split(' ')[1]
+        jwt.verify(token, process.env.jwtKey, (err, email) => {
+            if (err) {
+                NOTFOUND.mesaj = err.message
+                return res.status(401).json(NOTFOUND);
+            }
+            req.email = email;
+            next();
+        });
+    } else {
+        NOTFOUND.mesaj = {"mesaj":"Token must be provided"}
+        return res.status(401).json(NOTFOUND);
+    }
 }

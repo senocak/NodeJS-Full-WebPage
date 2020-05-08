@@ -82,3 +82,4 @@ router.get("/api/yorumlar/:yazi_url", ApiController.getYorumForYazi); // ?popula
 router.get("/api/kategoriler", ApiController.getTumKategoriler);
 router.get("/api/kategoriler/:kategori_url", ApiController.getKategori);
 router.post("/api/login", ApiController.postLogin);
+router.post("/api/profile", ApiController.authenticateJWT, ApiController.postProfile);
