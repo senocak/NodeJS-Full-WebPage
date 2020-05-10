@@ -74,7 +74,7 @@ router.post('/ckeditor/resimler/sil', function(req, res, next){
     res.redirect('back')
 });
 module.exports = router;
-//////////////////////7 API
+////////////////////// API
 router.get("/api/yazilar", ApiController.getTumYazilar);
 router.get("/api/yazilar/:yazi_url", ApiController.getYazi);
 router.get("/api/yorumlar", ApiController.getYorumlar); // ?populate=1
@@ -84,3 +84,5 @@ router.get("/api/kategoriler/:kategori_url", ApiController.getKategori);
 router.post("/api/login", ApiController.postLogin);
 router.post("/api/profile", ApiController.authenticateJWT, ApiController.postProfile);
 router.post("/api/kategoriler/ekle", ApiController.authenticateJWT, ApiController.postKategoriEkle);
+router.post("/api/kategoriler/:kategori_url", ApiController.authenticateJWT, ApiController.postKategoriDuzenle);
+router.delete("/api/kategoriler/:kategori_url", ApiController.authenticateJWT, ApiController.postKategoriSil);

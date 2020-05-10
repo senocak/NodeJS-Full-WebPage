@@ -5,7 +5,7 @@ let
         Kategori        = require("../model/Kategori"),
         Yorum           = require("../model/Yorum"),
         Kullanici       = require("../model/Kullanici"),
-        RESPONSE_MESAJ        = {"mesaj":"Kayıt Bulunamadı"},
+        RESPONSE_MESAJ  = {"mesaj":"Kayıt Bulunamadı"},
         STATUS_CODE     = 200,
         path            = require('path'),
         fs              = require('fs')
@@ -133,6 +133,71 @@ module.exports.postKategoriEkle = async(req, res)=>{
         }
     }
     res.status(STATUS_CODE).json(RESPONSE_MESAJ)
+}
+module.exports.postKategoriDuzenle = async(req, res)=>{
+    let kategori = await Kategori.findOne({url: req.params.kategori_url});
+    if (kategori == null) {
+        STATUS_CODE = 400
+        RESPONSE_MESAJ.mesaj = "Kategori Yok"
+    }else{
+        let     baslik  = (req.body.baslik != null  && req.body.baslik != undefined && req.body.baslik != "")   ? req.body.baslik : null,
+                resim   = (req.files != null        && req.files != undefined       && req.files != "")         ? req.files.resim : null,
+                myobj   = {}
+        if (baslik == null && resim == null) {
+            myobj = {}
+        }else if (baslik != null && resim == null) {
+            myobj = { baslik: req.body.baslik, url: baslik.url() }
+        }else if (baslik == null && resim != null) {
+            myobj = {resim: resim.name }
+        }else{
+            myobj = { baslik: req.body.baslik, url: baslik.url(), resim: resim.name }
+        }
+        const kategoriUpdated = await Kategori.updateOne({"_id":kategori._id}, myobj).catch(function(err){
+            return err == null ? true : err.message
+        });
+        if (kategoriUpdated) {
+            RESPONSE_MESAJ.mesaj = "Kategori Güncellendi"
+            if (resim != null) {
+                const resim_ekle  = await resim.mv(path.resolve(__dirname+'/../public/kategori/'+resim.name)).then((err)=>{return err == null ? true : err.message})
+                if (resim_ekle) {
+                    STATUS_CODE = 200
+                    RESPONSE_MESAJ.mesaj = "Kategori Resim ile Güncellendi"
+                    fs.unlinkSync(__dirname+'/../public/kategori/'+kategori.resim);
+                }else{
+                    STATUS_CODE = 400
+                    RESPONSE_MESAJ.mesaj = "Resim Güncelleme Hatası:"+resim_ekle
+                }
+            }
+        }else{
+            STATUS_CODE = 400
+            RESPONSE_MESAJ.mesaj = kategoriUpdated
+        }
+    }
+    res.status(STATUS_CODE).json(RESPONSE_MESAJ);
+}
+module.exports.postKategoriSil = async(req, res)=>{
+    let kategori = await Kategori.findOne({url: req.params.kategori_url});
+    if (kategori == null) {
+        STATUS_CODE = 400
+        RESPONSE_MESAJ.mesaj = "Kategori Yok"
+    }else{
+        const kategoriDeleted = await Kategori.findOneAndRemove({ _id: kategori._id }).catch(function(err){
+            return err == null ? true : err.message
+        });
+        if (kategoriDeleted) {
+            try{
+                fs.unlinkSync(__dirname+'/../public/kategori/'+kategori.resim);
+            } catch(err) {
+                console.log("Dosya Silinme Hatası: "+err)
+            }
+            STATUS_CODE = 204
+            RESPONSE_MESAJ.mesaj = "Kategori Silindi"
+        }else{
+            STATUS_CODE = 400
+            RESPONSE_MESAJ.mesaj = kategoriDeleted
+        }
+    }
+    res.status(STATUS_CODE).json(RESPONSE_MESAJ);
 }
 module.exports.authenticateJWT = (req, res, next)=>{
     let token = req.headers.authorization
