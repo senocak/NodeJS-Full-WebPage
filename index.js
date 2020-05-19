@@ -17,7 +17,6 @@ app.use(cookieParser());
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static('public'));
-app.use(Route);
 app.set('views', __dirname + '/views');
 app.use(session({
     expires: new Date(Date.now() + (30 * 86400 * 1000)) ,
@@ -25,10 +24,11 @@ app.use(session({
     resave: true,
     saveUninitialized: true,
 }));
+app.use(Route);
 edge.global('date', function (tarih, format){
     return moment(tarih).format(format)
 })
-mongoose.connect(process.env.MongoConnection, { useNewUrlParser: true }).then(() => console.error(`Mongo Bağlandı`)).catch(error => console.error(`Mongo Bağlantı Hatası:${error}`))
+mongoose.connect(`mongodb://${process.env.MongoIP}:${process.env.MongoPort}/${process.env.MongoDB}`, { useNewUrlParser: true }).then(() => console.error(`Mongo Bağlandı`)).catch(error => console.error(`Mongo Bağlantı Hatası:${error}`))
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);

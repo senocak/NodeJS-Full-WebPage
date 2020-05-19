@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const YorumSchema = new mongoose.Schema({
     email: {type:String, required:true},
-    yorum: {type:String, required:true, unique:true},
+    yorum: {type:String, required:true},
     tarih: { type: Date, default: Date.now },
     yazi  : [{ type: mongoose.Schema.ObjectId, ref: 'Yazi' }]
 }, {

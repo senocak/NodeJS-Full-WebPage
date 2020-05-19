@@ -1,23 +1,24 @@
 @layout('layouts.app')
-@section('content')
+@section('header')
+    <script type="text/javascript" language="javascript" src="/js/jquery.dataTables.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+@endsection
+@section('article')
     <form action="/admin/kategori/ekle" method="POST" encType="multipart/form-data">
-        <div class="container">
-            <div class="row ">
-                <div class="form-group mt-1 col-6">
-                    <input type="text" name="baslik" placeholder="Başlık" class="form-control" required>
-                </div>
-                <div class="form-group mt-1 col-xs-2">
-                    <input type="file" name="resim" class="form-control-file" required>
-                </div>
-                <div class="col-xs-">
-                    <button class="btn btn-primary">Kategori Ekle</button>
-                </div>
-            </div>
-        </div>
+        <input type="text" name="baslik" placeholder="Başlık" class="input" required>
+        <input type="file" name="resim" class="input" required>
+        <input type="submit" value="Kategori Ekle" class="buton-dark" style="width: 100%">
     </form>
-    <br>
     <table class="table table-striped w-auto">
-        <thead><tr><th>#</th><th>Başlık</th><th>Url</th><th>Tarih</th><th>İşlemler</th></tr></thead>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Başlık</th>
+                <th>Url</th>
+                <th>Tarih</th>
+                <th>İşlemler</th>
+            </tr>
+        </thead>
         <tbody>
             @each(kategori in kategoriler)
                 <tr>
@@ -26,11 +27,11 @@
                     <td>{{ kategori.url }} </td>
                     <td>{{ kategori.tarih.toDateString() }}</td>
                     <td>
-                        <a href="/admin/kategori/{{ kategori._id }}/duzenle" class="btn btn-primary">Düzenle</a>
-                        <a href="/admin/kategori/{{ kategori._id }}/sil" class="btn btn-danger"  onclick="return confirm('Silmek İstediğinize Emin Misiniz?')">Sil</a>    
+                        <a href="/admin/kategori/{{ kategori._id }}/duzenle" style="padding: 3px;border-radius: 4px;cursor: pointer;background-color: #ffff0070;">Düzenle</a>
+                        <a href="/admin/kategori/{{ kategori._id }}/sil" style="padding: 3px;border-radius: 4px;cursor: pointer;background-color: #ff0000a6;" onclick="return confirm('Silmek İstediğinize Emin Misiniz?')">Sil</a>
                     </td>
                 </tr>
             @endeach
         </tbody>
-      </table>
+    </table>
 @endsection

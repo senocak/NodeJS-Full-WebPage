@@ -73,16 +73,25 @@ router.post('/ckeditor/resimler/sil', function(req, res, next){
     }
     res.redirect('back')
 });
-module.exports = router;
 ////////////////////// API
-router.get("/api/yazilar", ApiController.getTumYazilar);
+router.get("/api/yazilar", ApiController.getTumYazilar);    // ?sayfa=1
 router.get("/api/yazilar/:yazi_url", ApiController.getYazi);
-router.get("/api/yorumlar", ApiController.getYorumlar); // ?populate=1
-router.get("/api/yorumlar/:yazi_url", ApiController.getYorumForYazi); // ?populate=1
-router.get("/api/kategoriler", ApiController.getTumKategoriler);
-router.get("/api/kategoriler/:kategori_url", ApiController.getKategori);
+router.post("/api/yazilar/ekle", ApiController.authenticateJWT, ApiController.postYaziEkle);
+router.put("/api/yazilar/:yazi_url", ApiController.authenticateJWT, ApiController.putYaziDuzenle);
+router.delete("/api/yazilar/:yazi_url", ApiController.authenticateJWT, ApiController.deleteYaziSil);
+
+router.get("/api/yorumlar", ApiController.getYorumlar); // ?populate=true
+router.get("/api/yorumlar/:yazi_url", ApiController.getYorumForYazi); // ?populate=true
+router.post("/api/yorumlar/:yazi_url", ApiController.postYorumForYazi);
+router.delete("/api/yorumlar/:yorum_id", ApiController.authenticateJWT, ApiController.deleteYorumForYazi);
+
 router.post("/api/login", ApiController.postLogin);
 router.post("/api/profile", ApiController.authenticateJWT, ApiController.postProfile);
+
+router.get("/api/kategoriler", ApiController.getTumKategoriler);
+router.get("/api/kategoriler/:kategori_url", ApiController.getKategori); //  ?sayfa=1
 router.post("/api/kategoriler/ekle", ApiController.authenticateJWT, ApiController.postKategoriEkle);
-router.post("/api/kategoriler/:kategori_url", ApiController.authenticateJWT, ApiController.postKategoriDuzenle);
-router.delete("/api/kategoriler/:kategori_url", ApiController.authenticateJWT, ApiController.postKategoriSil);
+router.put("/api/kategoriler/:kategori_url", ApiController.authenticateJWT, ApiController.putKategoriDuzenle);
+router.delete("/api/kategoriler/:kategori_url", ApiController.authenticateJWT, ApiController.deleteKategoriSil);
+
+module.exports = router;
